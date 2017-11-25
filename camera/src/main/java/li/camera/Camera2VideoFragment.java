@@ -325,7 +325,7 @@ public class Camera2VideoFragment extends Fragment
             Activity activity = getActivity();
             if (null != activity) {
                 new AlertDialog.Builder(activity)
-                        .setMessage(R.string.intro_message)
+                        .setMessage(R.string.record_intro_message)
                         .setPositiveButton(android.R.string.ok, null)
                         .show();
             }
@@ -389,13 +389,13 @@ public class Camera2VideoFragment extends Fragment
             if (grantResults.length == VIDEO_PERMISSIONS.length) {
                 for (int result : grantResults) {
                     if (result != PackageManager.PERMISSION_GRANTED) {
-                        ErrorDialog.newInstance(getString(R.string.permission_request))
+                        ErrorDialog.newInstance(getString(R.string.record_permission_request))
                                 .show(getChildFragmentManager(), FRAGMENT_DIALOG);
                         break;
                     }
                 }
             } else {
-                ErrorDialog.newInstance(getString(R.string.permission_request))
+                ErrorDialog.newInstance(getString(R.string.record_permission_request))
                         .show(getChildFragmentManager(), FRAGMENT_DIALOG);
             }
         } else {
@@ -461,7 +461,7 @@ public class Camera2VideoFragment extends Fragment
         } catch (NullPointerException e) {
             // Currently an NPE is thrown when the Camera2API is used but not supported on the
             // device this code runs.
-            ErrorDialog.newInstance(getString(R.string.camera_error))
+            ErrorDialog.newInstance(getString(R.string.record_camera_error))
                     .show(getChildFragmentManager(), FRAGMENT_DIALOG);
         } catch (InterruptedException e) {
             throw new RuntimeException("Interrupted while trying to lock camera opening.");
@@ -745,7 +745,7 @@ public class Camera2VideoFragment extends Fragment
         public Dialog onCreateDialog(Bundle savedInstanceState) {
             final Fragment parent = getParentFragment();
             return new AlertDialog.Builder(getActivity())
-                    .setMessage(R.string.permission_request)
+                    .setMessage(R.string.record_permission_request)
                     .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
