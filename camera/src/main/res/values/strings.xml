@@ -1,0 +1,9 @@
+<resources>
+    <string name="record_app_name">RecordDemo</string>
+    <string name="record_record">Record</string>
+    <string name="record_stop">Stop</string>
+    <string name="record_description_info">Info</string>
+    <string name="record_permission_request">This sample needs permission for camera and audio recording.</string>
+    <string name="record_camera_error">This device doesn\'t support Camera2 API.</string>
+    <string name="record_intro_message">sss</string>
+</resources>
