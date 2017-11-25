@@ -9,7 +9,7 @@
     <application>
         <activity
             android:name=".CameraActivity"
-            android:label="@string/camera_error">
+            android:label="@string/record_camera_error">
 
         </activity>
 

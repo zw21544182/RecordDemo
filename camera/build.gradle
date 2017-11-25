@@ -3,6 +3,9 @@ apply plugin: 'com.android.library'
 android {
     compileSdkVersion 26
     resourcePrefix "record_"
+    lintOptions {
+        abortOnError false
+    }
 
 
     defaultConfig {
@@ -35,8 +38,7 @@ dependencies {
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
 }
 apply plugin: 'com.novoda.bintray-release'//添加
-
-def siteUrl = 'https://github.com/用户名/项目名'//例如
+def siteUrl = 'https://github.com/zw21544182/RecordDemo'
 publish {
     repoName = 'ZhongWangMaven'//远程仓库名字,不指明，默认是上传到maven
     userOrg = 'zw21544182'//bintray.com的用户名
