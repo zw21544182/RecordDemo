@@ -20,13 +20,41 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.Window;
 import android.view.WindowManager;
 
+import java.util.ArrayList;
+
 public class CameraActivity extends Activity {
+    public static final String CAMERADATA = "CAMERADATA";
+    public static final int SUCESS = 2;
+
     public static void enterCamera(Context context) {
         Intent intent = new Intent(context, CameraActivity.class);
         context.startActivity(intent);
+    }
+
+    private ArrayList<String> paths = new ArrayList<>();
+
+    public static void enterCameraForResult(Activity activity, int resCode) {
+        Intent intent = new Intent(activity, CameraActivity.class);
+        activity.startActivityForResult(intent, resCode);
+    }
+
+    public void setVideoPath(String path) {
+        paths.add(path);
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
+            Intent intent = new Intent();
+            intent.putStringArrayListExtra(CAMERADATA, paths);
+            setResult(SUCESS, intent);
+            finish();
+        }
+        return true;
     }
 
     @Override

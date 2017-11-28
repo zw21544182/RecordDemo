@@ -44,7 +44,7 @@ publish {
     userOrg = 'zw21544182'//bintray.com的用户名
     groupId = 'li.camera'//项目包名
     artifactId = 'CamearHelp'//在Jfrog上新建项目名称（包名，不是仓库名）
-    publishVersion = '1.0.0'//在Jfrog上新建时的版本号
+    publishVersion = '1.0.1'//在Jfrog上新建时的版本号
     desc = '基于camear2拍照'//描述，不重要
     website = siteUrl//项目主页
 }

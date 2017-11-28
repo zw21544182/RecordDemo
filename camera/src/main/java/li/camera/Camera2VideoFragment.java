@@ -42,6 +42,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.HandlerThread;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v13.app.FragmentCompat;
 import android.support.v4.app.ActivityCompat;
 import android.util.Log;
@@ -67,7 +68,7 @@ import java.util.concurrent.TimeUnit;
 
 public class Camera2VideoFragment extends Fragment
         implements View.OnClickListener, FragmentCompat.OnRequestPermissionsResultCallback {
-
+    private CameraActivity cameraActivity;
     private static final int SENSOR_ORIENTATION_DEFAULT_DEGREES = 90;
     private static final int SENSOR_ORIENTATION_INVERSE_DEGREES = 270;
     private static final SparseIntArray DEFAULT_ORIENTATIONS = new SparseIntArray();
@@ -223,6 +224,12 @@ public class Camera2VideoFragment extends Fragment
     private Integer mSensorOrientation;
     private String mNextVideoAbsolutePath;
     private CaptureRequest.Builder mPreviewBuilder;
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        cameraActivity = (CameraActivity) getActivity();
+    }
 
     public static Camera2VideoFragment newInstance() {
         return new Camera2VideoFragment();
@@ -689,11 +696,13 @@ public class Camera2VideoFragment extends Fragment
         mMediaRecorder.stop();
         mMediaRecorder.reset();
 
-        Activity activity = getActivity();
-        if (null != activity) {
-            Toast.makeText(activity, "Video saved: " + mNextVideoAbsolutePath,
+
+        if (null != cameraActivity) {
+            cameraActivity.setVideoPath(mNextVideoAbsolutePath);
+            Toast.makeText(cameraActivity, getString(R.string.record_saved) + mNextVideoAbsolutePath,
                     Toast.LENGTH_SHORT).show();
-            Log.d(TAG, "Video saved: " + mNextVideoAbsolutePath);
+
+
         }
         mNextVideoAbsolutePath = null;
         startPreview();

@@ -16,18 +16,39 @@
 
 package zw.recorddemo;
 
+import android.Manifest;
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
-
-import li.camera.CameraActivity;
+import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
+import android.util.Log;
+import android.widget.ImageButton;
 
 public class MainActivity extends Activity {
+    private ImageButton start;
+    private static final int REQUESCODE = 3;
+    private static final String[] NEED_PERMISSION = new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.CALL_PHONE};
+    private static final String TAG = "ZWS";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        CameraActivity.enterCamera(this);
-
+        setContentView(R.layout.activity_main);
+        ActivityCompat.requestPermissions(this, NEED_PERMISSION, REQUESCODE);
     }
 
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == REQUESCODE ) {
+            Log.d(TAG, "sucess");
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+    }
 }
