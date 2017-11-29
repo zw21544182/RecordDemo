@@ -76,29 +76,28 @@ public class FileAdapter extends RecyclerView.Adapter<FileAdapter.ViewHolder> {
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
         final String path = data.get(position);
-        boolean isChecked = false;
+        boolean isChecked = false;//初始化一个boolean值 来判断是否被选中
         for (String s : selectData
-                ) {
-            if (s.trim().equals(path)) {
-                isChecked = true;
-                break;
+                ) {//遍历选中的集合
+            if (s.trim().equals(path)) {//如果集合中的子元素与适配其中的路径相同
+                isChecked = true;//判断已被选中
+                break;//终止循环
             }
         }
         holder.checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                if (b) {
-                    if (selectData.contains(path))
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {//设置checkBox的点击事件
+                if (b) {//选中状态
+                    if (selectData.contains(path))//如果集合中包含了该元素则直接返回
                         return;
-                    else
+                    else//否则添加
                         selectData.add(path);
-                } else {
-                    if (selectData.contains(path))
+                } else {//未选中状态
+                    if (selectData.contains(path))//如果集合中包含了该元素则移除
                         selectData.remove(path);
-                    else
+                    else//否则 返回
                         return;
                 }
-                Log.d("ZWW", "selectData size " + selectData.size());
             }
         });
         holder.checkBox.setChecked(isChecked);
@@ -106,7 +105,8 @@ public class FileAdapter extends RecyclerView.Adapter<FileAdapter.ViewHolder> {
         holder.rootLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (!holder.checkBox.isChecked()) {
+                if (!holder.checkBox.isChecked()) //获取checkBox的选中状态来判断是否能进入下一个文件夹
+                {
                     event.enterNextDir(data.get(position));
                 } else {
                     Toast.makeText(context, context.getString(R.string.filechoose_already), Toast.LENGTH_SHORT).show();
@@ -140,7 +140,10 @@ public class FileAdapter extends RecyclerView.Adapter<FileAdapter.ViewHolder> {
         }
     }
 
+    /**
+     * 在主界面中需要进行的操作
+     */
     public interface Event {
-        void enterNextDir(String path);
+        void enterNextDir(String path);//进入下一个文件夹
     }
 }

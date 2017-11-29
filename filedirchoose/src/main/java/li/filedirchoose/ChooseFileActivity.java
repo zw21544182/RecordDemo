@@ -99,38 +99,36 @@ public class ChooseFileActivity extends Activity {
     }
 
     private void initData() {
-        if (Build.VERSION.SDK_INT >= 23) {
+        if (Build.VERSION.SDK_INT >= 23) {//判断系统版本是否大于6.0
             if (checkSelfPermission(NEED_PERMISSION) == PackageManager.PERMISSION_GRANTED) {
-                getDataFromPath(mPath);
+                //检查是否有读写权限
+                loadDataFrompATH(mPath);//从路径中加载数据 
             } else {
-                requestPermissions(new String[]{NEED_PERMISSION}, REQUESCODE);
+                requestPermissions(new String[]{NEED_PERMISSION}, REQUESCODE);//申请权限
             }
             return;
         }
-        getDataFromPath(mPath);
+        loadDataFrompATH(mPath);//系统版本小于6.0直接加载数据
     }
 
-    private void getDataFromPath(final String mPath) {
-        data.clear();
+    private void loadDataFrompATH(final String mPath) {
+        data.clear();//data为RecyclerView中要显示的数据
         new Thread() {
             public void run() {
                 super.run();
                 File file = new File(mPath);
-                File[] listFiles = file.listFiles();
+                File[] listFiles = file.listFiles();//获取子文件
                 for (File f : listFiles
                         ) {
-                    if (!f.isDirectory() || f.getName().startsWith(".")) {
+                    if (!f.isDirectory() || f.getName().startsWith(".")) {//如果不是路径或者以 . 开头的文件夹 则直接跳过
                         continue;
                     }
-                    Log.d("ZWS", f.getAbsolutePath());
-                    data.add(f.getAbsolutePath());
-                    Log.d("ZWS", "new " + data.size());
+                    data.add(f.getAbsolutePath());//往集合中添加符合条件的数据
                 }
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        Log.d("ZWS", "last " + data.size());
-                        fileAdapter.setData(data);
+                        fileAdapter.setData(data);//将数据载入适配器当中
                     }
                 });
             }
@@ -151,7 +149,7 @@ public class ChooseFileActivity extends Activity {
             public void enterNextDir(String path) {
                 editText.setText("");
                 mPath = path;
-                getDataFromPath(mPath);
+                loadDataFrompATH(mPath);
             }
         });
         rvFileView.setAdapter(fileAdapter);
@@ -172,7 +170,7 @@ public class ChooseFileActivity extends Activity {
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if (requestCode == REQUESCODE && permissions[0].equals(NEED_PERMISSION)) {
-            getDataFromPath(mPath);
+            loadDataFrompATH(mPath);
         }
     }
 
@@ -189,7 +187,7 @@ public class ChooseFileActivity extends Activity {
                         return super.onKeyDown(keyCode, event);
                     }
                     mPath = file.getParent();
-                    getDataFromPath(mPath);
+                    loadDataFrompATH(mPath);
                     return false;
                 }
             }
