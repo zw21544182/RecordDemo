@@ -1,0 +1,11 @@
+<resources>
+    <string name="filechoose_app_name">FileDirChoose</string>
+    <string name="filechoose_record">Record</string>
+    <string name="filechoose_stop">Stop</string>
+    <string name="filechoose_description_info">Info</string>
+    <string name="filechoose_permission_request">This sample needs permission for camera and audio recording.</string>
+    <string name="filechoose_camera_error">This device doesn\'t support Camera2 API.</string>
+    <string name="filechoose_intro_message">sss</string>
+    <string name="filechoose_already">您已经选中该文件夹</string>
+    <string name="filechoose_sure">确定</string>
+</resources>

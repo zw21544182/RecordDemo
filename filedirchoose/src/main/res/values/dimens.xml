@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="filechoose_barheight">50dp</dimen>
+    <dimen name="filechoose_height">30dp</dimen>
+    <dimen name="filechoose_martop">5dp</dimen>
+
+</resources>

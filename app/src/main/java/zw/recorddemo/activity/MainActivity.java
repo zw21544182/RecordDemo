@@ -14,41 +14,40 @@
  * limitations under the License.
  */
 
-package zw.recorddemo;
+package zw.recorddemo.activity;
 
-import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.v4.app.ActivityCompat;
 import android.util.Log;
-import android.widget.ImageButton;
+
+import java.util.ArrayList;
+
+import li.filedirchoose.ChooseFileActivity;
+import zw.recorddemo.R;
+
 
 public class MainActivity extends Activity {
-    private ImageButton start;
-    private static final int REQUESCODE = 3;
-    private static final String[] NEED_PERMISSION = new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.CALL_PHONE};
-    private static final String TAG = "ZWS";
+    public static final int PATHREQUESTCODE = 44;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        ActivityCompat.requestPermissions(this, NEED_PERMISSION, REQUESCODE);
+        setContentView(R.layout.activity);
+        initData();
     }
 
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if (requestCode == REQUESCODE ) {
-            Log.d(TAG, "sucess");
-        }
+    private void initData() {
+        ChooseFileActivity.enterActivityForResult(this, PATHREQUESTCODE);
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
+        Log.d("zww","onActivityResult ");
+        if (requestCode == PATHREQUESTCODE && resultCode == ChooseFileActivity.RESULTCODE) {
+            ArrayList<String> resPath = data.getStringArrayListExtra(ChooseFileActivity.SELECTPATH);
+            Log.d("ZWW", resPath.toString());
+        }
     }
 }

@@ -1,0 +1,56 @@
+apply plugin: 'com.android.library'
+
+android {
+    compileSdkVersion 26
+    resourcePrefix "filechoose_"
+
+    lintOptions {
+        abortOnError false
+    }
+
+
+    defaultConfig {
+        minSdkVersion 21
+        targetSdkVersion 26
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation 'com.android.support.constraint:constraint-layout:1.0.2'
+    compile 'com.android.support:recyclerview-v7:26.1.0'
+
+    implementation 'com.android.support:appcompat-v7:26.1.0'
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'com.android.support.test:runner:1.0.1'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
+}
+apply plugin: 'com.novoda.bintray-release'//添加
+def siteUrl = 'https://github.com/zw21544182/RecordDemo'
+publish {
+    repoName = 'ZhongWangMaven'//远程仓库名字,不指明，默认是上传到maven
+    userOrg = 'zw21544182'//bintray.com的用户名
+    groupId = 'li.filechoose'//项目包名
+    artifactId = 'FileDirChoose'//在Jfrog上新建项目名称（包名，不是仓库名）
+    publishVersion = '1.0.3'//在Jfrog上新建时的版本号
+    desc = 'FileDir Choose Util'//描述，不重要
+    website = siteUrl//项目主页
+}
+tasks.withType(Javadoc) {//防止编码问题
+    options.addStringOption('Xdoclint:none', '-quiet')
+    options.addStringOption('encoding', 'UTF-8')
+    options.addStringOption('charSet', 'UTF-8')
+}

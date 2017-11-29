@@ -6,4 +6,5 @@
     <string name="permission_request">This sample needs permission for camera and audio recording.</string>
     <string name="camera_error">This device doesn\'t support Camera2 API.</string>
     <string name="intro_message">sss</string>
+    <string name="already">您已经选中该文件夹</string>
 </resources>
